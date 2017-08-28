@@ -14,6 +14,11 @@
                 <bean class="com.msimw.validation.handler.PatternHandler"></bean>
                 <bean class="com.msimw.validation.handler.NotEmptyHandler"></bean>
                 <bean class="com.msimw.validation.handler.LengthHandler"></bean>
+                <bean class="com.msimw.validation.handler.ChineseCharactersHandler"></bean>
+                <bean class="com.msimw.validation.handler.ChineseIdCardHandler"></bean>
+                <bean class="com.msimw.validation.handler.EmailHandler"></bean>
+                <bean class="com.msimw.validation.handler.EnglishCharactersHandler"></bean>
+                <bean class="com.msimw.validation.handler.NumberHandler"></bean>
             </list>
         </property>
     </bean>
@@ -26,7 +31,7 @@
     <!--AOP  配置环绕-->
     <aop:config proxy-target-class="true"><!--切面-->
         <aop:pointcut id="validationPointcut"
-                      expression="@within(com.msimw.validation.annotation.Validated)" ></aop:pointcut>
+                      expression="@within(com.msimw.validation.annotation.Validated)"></aop:pointcut>
         <aop:aspect ref="validationInterceptor" order="1">
             <aop:around method="validated" pointcut-ref="validationPointcut"/>
         </aop:aspect>
