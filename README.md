@@ -6,7 +6,7 @@
     2.在需要校验的类或接口上加入@Validated
     3.对于引用类型的校验，在参数上加@Validated（然后在类的属性上加校验注解）
 
-####1.默认有八种校验器（都是可继承的）
+    1.默认有八种校验器（都是可继承的）
 
       @NotEmpty 为空判断
       @Length 长度校验
@@ -17,7 +17,7 @@
       @EnglishCharacters 英文字母校验
       @Number 数字
 
-####2.注解公共属性:messageCode,message,groups
+    2.注解公共属性:messageCode,message,groups
    
       1.messageCode:消息码（当messageCode有值的情况下，会读取classpath:validation/validation.properties文件，否则读取message(message有默认的提示消息)
       2.message:消息
