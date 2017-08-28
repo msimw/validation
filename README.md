@@ -1,4 +1,4 @@
-#关于spring.Validation　通用数据校验工具的使用说明
+#关于spring.validation　通用数据校验工具的使用说明
 
 ###1.如何使用 
 
