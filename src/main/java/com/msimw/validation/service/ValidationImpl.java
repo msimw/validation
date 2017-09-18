@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.io.FileInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by msimw on 17-3-28.
@@ -106,8 +106,8 @@ public class ValidationImpl implements Validation {
     private ValidationResult objValidated(Object obj, Validated validated, Class type) throws NoSuchFieldException, IllegalAccessException {
         if (type == null || validated == null) {
             return null;
-        }//TODO 这里还有点问题，需要获取父类的字段属性。我们可以通过get，set变相获取
-        Field[] fields = type.getDeclaredFields();
+        }
+        Field[] fields = getFieldsByType(type);
         if (ObjectUtils.isEmpty(fields)) {
             return null;
         }
@@ -115,7 +115,7 @@ public class ValidationImpl implements Validation {
             field.setAccessible(true);
             Annotation[] annotations = field.getAnnotations();
             if (annotations == null) {
-                continue;
+                continue ;
             }
             Object fieldVal = null;
             if (obj != null) {
@@ -220,6 +220,61 @@ public class ValidationImpl implements Validation {
 
         return null;
     }
+
+
+    /**
+     * 获取一个类的所有字段，包括父类的
+     * @param type
+     * @return
+     */
+    private  Field[] getFieldsByType(Class<?> type){
+        if(type==null){
+            return null;
+        }
+
+        List<Class<?>> allSuperclass = getAllSuperclass(type);
+        allSuperclass.add(type);
+
+        if (CollectionUtils.isEmpty(allSuperclass)){
+            return type.getDeclaredFields();
+        }
+
+        Map<String,Field> fieldMap = new HashMap<>();
+        for(Class<?> sup:allSuperclass){
+            Field[] fs = sup.getDeclaredFields();
+            if(fs==null||fs.length<1){
+                continue;
+            }
+            for(Field f:fs){
+                fieldMap.put(f.getName(),f);
+            }
+        }
+        return fieldMap.values().toArray(new Field[0]);
+
+    }
+
+    /**
+     * 获取一个类的所有父类
+     * @param type
+     * @return
+     */
+    public  List<Class<?>> getAllSuperclass(Class<?> type){
+        LinkedList<Class<?>> temp = new LinkedList<>();
+        temp.add(type);
+        List<Class<?>> sups = new ArrayList<>();
+
+        while (!temp.isEmpty()){
+            Class<?> superclass = temp.removeFirst().getSuperclass();
+            sups.add(superclass);
+            if(superclass.getSuperclass()!=null){
+                temp.add(superclass);
+            }
+        }
+        Collections.reverse(sups);//倒序，越顶层类在越前面
+        return sups;
+    }
+
+
 
     /**
      * 获取制定位置的参数

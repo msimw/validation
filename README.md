@@ -1,6 +1,10 @@
-#关于spring.validation　通用数据校验工具的使用说明
+# 关于spring.validation　通用数据校验工具的使用说明
 
-###1.如何使用 
+### 版本更新说明
+    v1.2 新增对dto字段校验继承。即子类可以直接继承父类的校验。
+    
+
+### 1.如何使用 
 
     1.再需要参数校验的工程引入classpath:validation/applicationContext-validation.xml
     2.在需要校验的类或接口上加入@Validated
@@ -24,11 +28,11 @@
       3.groups:校验分组
 
 
-###2.关于扩展自定义校验规则
+### 2.关于扩展自定义校验规则
      1.新建一个校验规则注解(必须要有上述公共属性)
      2.继承AbstractValidationHandler或实现ValidationHandler类实现校验规则，使用ValidationHandlerExpand类来扩展新的校验规则（建议继承AbstractValidationHandler）
 
-####Demo：
+#### Demo：
     <bean class="ValidationHandlerExpand">
         <property name="validationHandlers">
             <list>
@@ -37,5 +41,31 @@
         </property>
     </bean>
 
-###3.建议
+### 3.建议
 当系统某一校验规则多次出现的情况下建议扩展校验器。
+
+### 4.Demo 
+    
+    1.代码示例
+           
+          @Validated
+          public class DemoServiceImpl implements IDemoService {
+          
+              @Override
+              public void add(@NotEmpty String id) {
+          
+              }
+          
+              @Override
+              public void add1(@Validated Demo demo) {
+          
+              }
+          }
+           
+           
+    2.配置文件
+           
+          <import resource="classpath:validation/applicationContext-validation.xml"></import>
+          <bean id="demoService" class="com.msimw.demo.service.DemoServiceImpl"></bean>
+                  
+    
