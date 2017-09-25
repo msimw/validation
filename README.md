@@ -1,5 +1,17 @@
 # 关于spring.validation　通用数据校验工具的使用说明
 
+### Maven
+    <dependency>
+        <groupId>com.github.msimw</groupId>
+        <artifactId>validation</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </dependency>
+
+
+### 版本更新说明
+    v1.2 1.修改动态获取URL的方式为${}
+         2.修复动态获取URL与配置URL冲突BUG
+
 ### 版本更新说明
     v1.2 新增对dto字段校验继承。即子类可以直接继承父类的校验。
     
