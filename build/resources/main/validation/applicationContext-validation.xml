@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+    <!--校验核心接口-->
+    <bean id="validation" class="com.msimw.validation.service.ValidationImpl">
+        <property name="validationHandlers">
+            <list>
+                <bean class="com.msimw.validation.handler.PatternHandler"></bean>
+                <bean class="com.msimw.validation.handler.NotEmptyHandler"></bean>
+                <bean class="com.msimw.validation.handler.LengthHandler"></bean>
+                <bean class="com.msimw.validation.handler.ChineseCharactersHandler"></bean>
+                <bean class="com.msimw.validation.handler.ChineseIdCardHandler"></bean>
+                <bean class="com.msimw.validation.handler.EmailHandler"></bean>
+                <bean class="com.msimw.validation.handler.EnglishCharactersHandler"></bean>
+                <bean class="com.msimw.validation.handler.NumberHandler"></bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--切面对象 -->
+    <bean id="validationInterceptor" class="com.msimw.validation.aop.ValidationInterceptor">
+        <property name="validation" ref="validation"/>
+    </bean>
+
+    <!--AOP  配置环绕-->
+    <aop:config proxy-target-class="true"><!--切面-->
+        <aop:pointcut id="validationPointcut"
+                      expression="@within(com.msimw.validation.annotation.Validated)"></aop:pointcut>
+        <aop:aspect ref="validationInterceptor" order="1">
+            <aop:around method="validated" pointcut-ref="validationPointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

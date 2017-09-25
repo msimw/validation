@@ -3,9 +3,7 @@ package com.msimw.validation.constants;
 /**
  * Created by huming on 10:32 2017/3/17.
  *
- * @Author: huming
- * @Description:
- * @Modified By:
+ * @author: huming
  */
 public interface ValidationMessageConstant {
 

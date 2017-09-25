@@ -29,8 +29,8 @@ public class ValidationInterceptor {
     /**
      * 获取目标方法2String
      *
-     * @param jp
-     * @return
+     * @param jp  join point
+     * @return 校验key
      */
     public static String getValidationKey(JoinPoint jp) {
         String packageName = jp.getTarget().getClass().getName();
@@ -41,8 +41,8 @@ public class ValidationInterceptor {
     /**
      * 获取参数
      *
-     * @param jp
-     * @return
+     * @param jp join point
+     * @return 校验参数
      */
     public static String getRequestParam(JoinPoint jp) {
         StringBuilder key = new StringBuilder();
@@ -59,8 +59,9 @@ public class ValidationInterceptor {
     /**
      * 较验
      *
-     * @param jp
+     * @param jp join point
      * @throws IntrospectionException
+     * @return 代理返回
      */
     public Object validated(ProceedingJoinPoint jp) throws Throwable {
         Method method = ((MethodSignature) jp.getSignature()).getMethod();
@@ -77,9 +78,9 @@ public class ValidationInterceptor {
     /**
      * 结果处理
      *
-     * @param method
-     * @param resultEntity
-     * @return
+     * @param method 方法
+     * @param resultEntity 验证结果
+     * @return 教研结果
      */
     private Object resultHandler(Method method, ValidationResult resultEntity) {
         Class<?> returnType = method.getReturnType();

@@ -15,25 +15,25 @@ public interface Validation {
     /**
      * 校验方法
      *
-     * @param method
-     * @param args
-     * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @param method 方法
+     * @param args 参数
+     * @return 校验结果
+     * @throws NoSuchFieldException 没有找到字段
+     * @throws IllegalAccessException  IllegalAccessException
      */
     ValidationResult validated(Method method, Object... args) throws NoSuchFieldException, IllegalAccessException;
 
     /**
      * 设置校验器
      *
-     * @param validationHandlers
+     * @param validationHandlers 校验处理器
      */
     public void setValidationHandlers(List<ValidationHandler> validationHandlers);
 
     /**
      * 新增加校验器
      *
-     * @param validationHandlers
+     * @param validationHandlers 校验处理器
      */
     public void addValidationHandlers(List<ValidationHandler> validationHandlers);
 }

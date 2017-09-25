@@ -21,11 +21,9 @@ import java.util.*;
 
 /**
  * Created by msimw on 17-3-28.
- *
+ * 数据校验处理器
  * @version 1.0.0
- * @Description: 数据校验处理器
- * @Author: msimw
- * @date 17-3-28 下午4:23
+ * @author: msimw
  */
 @Service
 public class ValidationImpl implements Validation {
@@ -40,11 +38,11 @@ public class ValidationImpl implements Validation {
     /**
      * 　校验方法
      *
-     * @param method
-     * @param args
-     * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @param method 方法
+     * @param args 参数
+     * @return 校验结果
+     * @throws NoSuchFieldException 没有此字段
+     * @throws IllegalAccessException IllegalAccessException
      */
     @Override
     public ValidationResult validated(Method method, Object... args) throws NoSuchFieldException, IllegalAccessException {
@@ -86,7 +84,10 @@ public class ValidationImpl implements Validation {
         return null;
     }
 
-
+    /**
+     *
+     * @param validationHandlers 校验处理器
+     */
     @Override
     public void setValidationHandlers(List<ValidationHandler> validationHandlers) {
         this.validationHandlers = validationHandlers;
@@ -96,12 +97,12 @@ public class ValidationImpl implements Validation {
     /**
      * pojo 对象校验
      *
-     * @param obj
-     * @param validated
-     * @param type
-     * @return
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @param obj 被校验对象
+     * @param validated 校验注解
+     * @param type 校验类型
+     * @return 校验结果
+     * @throws NoSuchFieldException NoSuchFieldException
+     * @throws IllegalAccessException IllegalAccessException
      */
     private ValidationResult objValidated(Object obj, Validated validated, Class type) throws NoSuchFieldException, IllegalAccessException {
         if (type == null || validated == null) {
@@ -133,12 +134,15 @@ public class ValidationImpl implements Validation {
 
 
     /**
+     *  分组校验
      *
-     * 根据分组校验
-     *
-     * @param validated
-     * @param annotation
-     * @return
+     * @param field 校验字段
+     * @param obj 校验对象
+     * @param validated 校验注解
+     * @param annotation 校验注解
+     * @return 校验结果
+     * @throws NoSuchFieldException NoSuchFieldException
+     * @throws IllegalAccessException IllegalAccessException
      */
     private ValidationResult checkGroupAndValidated(Field field, Object obj, Validated validated, Annotation annotation) throws NoSuchFieldException, IllegalAccessException {
         Map<String, Object> attributes = AnnotationUtils.getAnnotationAttributes(annotation);
@@ -168,8 +172,8 @@ public class ValidationImpl implements Validation {
     /**
      * 获取相应注解的执行
      *
-     * @param annotation
-     * @return
+     * @param annotation 校验注解
+     * @return 校验处理器
      */
     private ValidationHandler getValidationHandler(Annotation annotation) {
         if (CollectionUtils.isEmpty(this.validationHandlers)) {
@@ -200,10 +204,11 @@ public class ValidationImpl implements Validation {
     /**
      * 获取指定位置的参数
      *
-     * @param annos
-     * @param index
-     * @param clasz
-     * @return
+     * @param annos 注解
+     * @param index index
+     * @param clasz 类型
+     *
+     * @return 注解
      */
     public <T extends Annotation> T findAnnotation(Annotation[][] annos, int index, Class<T> clasz) {
         if (annos == null || annos.length < 1) {
@@ -224,8 +229,8 @@ public class ValidationImpl implements Validation {
 
     /**
      * 获取一个类的所有字段，包括父类的
-     * @param type
-     * @return
+     * @param type 类型
+     * @return 字段数组
      */
     private  Field[] getFieldsByType(Class<?> type){
         if(type==null){
@@ -255,8 +260,8 @@ public class ValidationImpl implements Validation {
 
     /**
      * 获取一个类的所有父类
-     * @param type
-     * @return
+     * @param type 类型
+     * @return Class 列表
      */
     public  List<Class<?>> getAllSuperclass(Class<?> type){
         LinkedList<Class<?>> temp = new LinkedList<>();
@@ -279,9 +284,9 @@ public class ValidationImpl implements Validation {
     /**
      * 获取制定位置的参数
      *
-     * @param annos
-     * @param index
-     * @return
+     * @param annos 注解
+     * @param index index
+     * @return 注解
      */
     public <T extends Annotation> T[] findAnnotation(Annotation[][] annos, int index) {
         if (annos == null || annos.length < 1) {

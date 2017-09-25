@@ -10,8 +10,8 @@ import java.lang.reflect.Method;
 public class ClassUtil {
 
     /**
-     * @param clz
-     * @return
+     * @param clz class类型
+     * @return 是否是基础类型
      */
     public static boolean isWrapClass(Class<?> clz) {
         try {
@@ -22,8 +22,8 @@ public class ClassUtil {
     }
 
     /**
-     * @param clz
-     * @return
+     * @param clz class类型
+     * @return 是否是基础类型或者String
      */
     public static boolean isWrapClassAndString(Class<?> clz) {
         if (clz == String.class
@@ -36,8 +36,8 @@ public class ClassUtil {
 
     /**
      * 获取方法上参数名 JDK1.7
-     *
-     * @return
+     * @param method 方法
+     * @return 参数名称数组
      */
     public static String[] getMethodParamNames(Method method) {
         if (method == null) {
@@ -51,8 +51,8 @@ public class ClassUtil {
     /**
      * 获取类上的字段
      *
-     * @param classType
-     * @return
+     * @param classType class类型
+     * @return 字段
      */
     public static Field[] getFields(Class classType) {
         if (classType == null) {

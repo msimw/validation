@@ -9,9 +9,7 @@ import org.springframework.util.StringUtils;
 /**
  * Created by huming on 12:58 2017/3/22.
  *
- * @Author: huming
- * @Description:校验工具类
- * @Modified By:
+ * @author: huming
  */
 
 public abstract class ValidationResultUtils {
@@ -19,10 +17,10 @@ public abstract class ValidationResultUtils {
     /**
      * 生成一个校验结果
      *
-     * @param code
-     * @param message
-     * @param fieldName
-     * @return
+     * @param code 校验码
+     * @param message 校验消息
+     * @param fieldName 校验字段
+     * @return 校验结果
      */
     public static ValidationResult buildValidationResultEntity(String code, String message, String fieldName) {
         ValidationResult validationResult = new ValidationResult(fieldName,code,message);
