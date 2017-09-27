@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
-  <info organisation="com.githup.msimw" module="validation" revision="1.0-SNAPSHOT" status="integration" default="true" publication="20170925104002"/>
+  <info organisation="com.githup.msimw" module="validation" revision="1.0-SNAPSHOT" status="integration" default="true" publication="20170927104926"/>
   <configurations>
     <conf name="apiElements" visibility="private" extends="compile,runtime"/>
     <conf name="archives" visibility="public"/>
