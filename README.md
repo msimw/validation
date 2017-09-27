@@ -4,7 +4,7 @@
     <dependency>
         <groupId>com.github.msimw</groupId>
         <artifactId>validation</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.0</version>
     </dependency>
 
 
